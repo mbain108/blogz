@@ -33,7 +33,6 @@ class Blog(db.Model):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
-    #password = db.Column(db.String(120))
     pw_hash = db.Column(db.String(120))
     blogs = db.relationship('Blog', backref='owner')
 
@@ -183,7 +182,7 @@ def newpost():
             db.session.add(new_blog)
             db.session.commit()
 
-            return redirect('/blog?id={0}'.format(new_blog.id))
+            return redirect('/blog?blog_id={0}'.format(new_blog.id))
         else:
             return render_template('newpost.html', title=title, body=body, title_error=title_error, body_error=body_error)
     else:
